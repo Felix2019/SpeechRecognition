@@ -3,10 +3,12 @@ const content = document.querySelector('.content')
 const alexa = document.querySelector('.alexa')
 let lat;
 let long;
+const synth = window.speechSynthesis;
 
 var appKey = "7d987f8a7dc71e57baae316cb96771ed"; // wetter api key 
 
 getGeo()
+read()
 
 function getGeo (){
 
@@ -73,22 +75,30 @@ function getData(temp) {
     const transcript = event.results[current][0].transcript
     btn.style.background=  "linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%)";
     alexa.style.color = "white"
-    content.textContent = temp
+    alexa.textContent = temp
     //readOutLoud(transcript)
     
     }
 }
 
-var text ="lol"
 
-readOutLoud(text)
+
+
+function read (){
+    var aussage = new SpeechSynthesisUtterance('Hallo Welt');
+    window.speechSynthesis.speak(aussage);
+}
+
+
 
 
 
 function readOutLoud (message) {
     const speech = new SpeechSynthesisUtterance()
 
-    speech.text = "Das weiß ich leider nicht"
+    speech.text = message
+
+    synth.speak(speech)
 
    if(message.includes('ey')){
        const finaltext = greetings[Math.floor(Math.random() * greetings.length)]
@@ -99,6 +109,6 @@ function readOutLoud (message) {
     speech.rate  = 1
     speech.pitch = 1
 
-    window.speechSynthesis.speak(speech)
+    
 }
 
